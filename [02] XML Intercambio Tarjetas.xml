@@ -1,0 +1,24 @@
+<sistemas>
+    <sistema>
+        <sistemaNombre>Sistema 1</sistemaNombre>
+        <sistemaLocalizacion>coordenadas</sistemaLocalizacion>
+        <tarjetaCredito>
+            <tarjetaCreditoNumero>1234567890123456</tarjetaCreditoNumero>
+            <tarjetaCreditoFechaVencimiento>20500705</tarjetaCreditoFechaVencimiento>
+            <tarjetaCreditoCodigoSeguridad>123</tarjetaCreditoCodigoSeguridad>
+            <idCliente>1</idCliente>
+            <clienteNombre>Pedro Pascal</clienteNombre>
+        </tarjetaCredito>
+    </sistema>
+    <sistema>
+        <sistemaNombre>Sistema 2</sistemaNombre>
+        <sistemaLocalizacion>coordenadas 2</sistemaLocalizacion>
+        <tarjetaCredito>
+            <tarjetaCreditoNumero>6543210987654321</tarjetaCreditoNumero>
+            <tarjetaCreditoFechaVencimiento>20500105</tarjetaCreditoFechaVencimiento>
+            <tarjetaCreditoCodigoSeguridad>321</tarjetaCreditoCodigoSeguridad>
+            <idCliente>2</idCliente>
+            <clienteNombre>Leo Messi</clienteNombre>
+        </tarjetaCredito>
+    </sistema>
+</sistemas>
