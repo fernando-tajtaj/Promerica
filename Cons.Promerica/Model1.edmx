@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PromericaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Formato_Mensaje">
+          <Key>
+            <PropertyRef Name="FormatoMensajeId" />
+          </Key>
+          <Property Name="FormatoMensajeId" Type="int" Nullable="false" />
+          <Property Name="IdTipo" Type="tinyint" Nullable="false" />
+          <Property Name="IdTipoInformacion" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Remitente" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Asunto" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="MensajeId" />
+          </Key>
+          <Property Name="MensajeId" Type="int" Nullable="false" />
+          <Property Name="IdFormatoMensaje" Type="int" Nullable="false" />
+          <Property Name="IdProyecto" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ProductoId" />
+          </Key>
+          <Property Name="ProductoId" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto_Proyecto">
+          <Key>
+            <PropertyRef Name="ProductoProyectoId" />
+          </Key>
+          <Property Name="ProductoProyectoId" Type="int" Nullable="false" />
+          <Property Name="IdProyecto" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proyecto">
+          <Key>
+            <PropertyRef Name="ProyectoId" />
+          </Key>
+          <Property Name="ProyectoId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="TipoId" />
+          </Key>
+          <Property Name="TipoId" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Informacion">
+          <Key>
+            <PropertyRef Name="TipoInformacionId" />
+          </Key>
+          <Property Name="TipoInformacionId" Type="tinyint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Formato_M__IdTip__300424B4">
+          <End Role="Tipo" Type="Self.Tipo" Multiplicity="1" />
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="TipoId" />
+            </Principal>
+            <Dependent Role="Formato_Mensaje">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Formato_M__IdTip__30F848ED">
+          <End Role="Tipo_Informacion" Type="Self.Tipo_Informacion" Multiplicity="1" />
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Informacion">
+              <PropertyRef Name="TipoInformacionId" />
+            </Principal>
+            <Dependent Role="Formato_Mensaje">
+              <PropertyRef Name="IdTipoInformacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdForma__33D4B598">
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formato_Mensaje">
+              <PropertyRef Name="FormatoMensajeId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdFormatoMensaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdProdu__35BCFE0A">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdProye__34C8D9D1">
+          <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyecto">
+              <PropertyRef Name="ProyectoId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdPro__2C3393D0">
+          <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+          <End Role="Producto_Proyecto" Type="Self.Producto_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyecto">
+              <PropertyRef Name="ProyectoId" />
+            </Principal>
+            <Dependent Role="Producto_Proyecto">
+              <PropertyRef Name="IdProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdPro__2D27B809">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Producto_Proyecto" Type="Self.Producto_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Producto_Proyecto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PromericaModelStoreContainer">
+          <EntitySet Name="Formato_Mensaje" EntityType="Self.Formato_Mensaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mensaje" EntityType="Self.Mensaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto_Proyecto" EntityType="Self.Producto_Proyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Informacion" EntityType="Self.Tipo_Informacion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Formato_M__IdTip__300424B4" Association="Self.FK__Formato_M__IdTip__300424B4">
+            <End Role="Tipo" EntitySet="Tipo" />
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Formato_M__IdTip__30F848ED" Association="Self.FK__Formato_M__IdTip__30F848ED">
+            <End Role="Tipo_Informacion" EntitySet="Tipo_Informacion" />
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdForma__33D4B598" Association="Self.FK__Mensaje__IdForma__33D4B598">
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdProdu__35BCFE0A" Association="Self.FK__Mensaje__IdProdu__35BCFE0A">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdProye__34C8D9D1" Association="Self.FK__Mensaje__IdProye__34C8D9D1">
+            <End Role="Proyecto" EntitySet="Proyecto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdPro__2C3393D0" Association="Self.FK__Producto___IdPro__2C3393D0">
+            <End Role="Proyecto" EntitySet="Proyecto" />
+            <End Role="Producto_Proyecto" EntitySet="Producto_Proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdPro__2D27B809" Association="Self.FK__Producto___IdPro__2D27B809">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Producto_Proyecto" EntitySet="Producto_Proyecto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PromericaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Formato_Mensaje">
+          <Key>
+            <PropertyRef Name="FormatoMensajeId" />
+          </Key>
+          <Property Name="FormatoMensajeId" Type="Int32" Nullable="false" />
+          <Property Name="IdTipo" Type="Byte" Nullable="false" />
+          <Property Name="IdTipoInformacion" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remitente" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Asunto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tipo" Relationship="Self.FK__Formato_M__IdTip__300424B4" FromRole="Formato_Mensaje" ToRole="Tipo" />
+          <NavigationProperty Name="Tipo_Informacion" Relationship="Self.FK__Formato_M__IdTip__30F848ED" FromRole="Formato_Mensaje" ToRole="Tipo_Informacion" />
+          <NavigationProperty Name="Mensaje" Relationship="Self.FK__Mensaje__IdForma__33D4B598" FromRole="Formato_Mensaje" ToRole="Mensaje" />
+        </EntityType>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="MensajeId" />
+          </Key>
+          <Property Name="MensajeId" Type="Int32" Nullable="false" />
+          <Property Name="IdFormatoMensaje" Type="Int32" Nullable="false" />
+          <Property Name="IdProyecto" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Formato_Mensaje" Relationship="Self.FK__Mensaje__IdForma__33D4B598" FromRole="Mensaje" ToRole="Formato_Mensaje" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Mensaje__IdProdu__35BCFE0A" FromRole="Mensaje" ToRole="Producto" />
+          <NavigationProperty Name="Proyecto" Relationship="Self.FK__Mensaje__IdProye__34C8D9D1" FromRole="Mensaje" ToRole="Proyecto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ProductoId" />
+          </Key>
+          <Property Name="ProductoId" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mensaje" Relationship="Self.FK__Mensaje__IdProdu__35BCFE0A" FromRole="Producto" ToRole="Mensaje" />
+          <NavigationProperty Name="Producto_Proyecto" Relationship="Self.FK__Producto___IdPro__2D27B809" FromRole="Producto" ToRole="Producto_Proyecto" />
+        </EntityType>
+        <EntityType Name="Producto_Proyecto">
+          <Key>
+            <PropertyRef Name="ProductoProyectoId" />
+          </Key>
+          <Property Name="ProductoProyectoId" Type="Int32" Nullable="false" />
+          <Property Name="IdProyecto" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto___IdPro__2D27B809" FromRole="Producto_Proyecto" ToRole="Producto" />
+          <NavigationProperty Name="Proyecto" Relationship="Self.FK__Producto___IdPro__2C3393D0" FromRole="Producto_Proyecto" ToRole="Proyecto" />
+        </EntityType>
+        <EntityType Name="Proyecto">
+          <Key>
+            <PropertyRef Name="ProyectoId" />
+          </Key>
+          <Property Name="ProyectoId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mensaje" Relationship="Self.FK__Mensaje__IdProye__34C8D9D1" FromRole="Proyecto" ToRole="Mensaje" />
+          <NavigationProperty Name="Producto_Proyecto" Relationship="Self.FK__Producto___IdPro__2C3393D0" FromRole="Proyecto" ToRole="Producto_Proyecto" />
+        </EntityType>
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="TipoId" />
+          </Key>
+          <Property Name="TipoId" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Formato_Mensaje" Relationship="Self.FK__Formato_M__IdTip__300424B4" FromRole="Tipo" ToRole="Formato_Mensaje" />
+        </EntityType>
+        <EntityType Name="Tipo_Informacion">
+          <Key>
+            <PropertyRef Name="TipoInformacionId" />
+          </Key>
+          <Property Name="TipoInformacionId" Type="Byte" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Formato_Mensaje" Relationship="Self.FK__Formato_M__IdTip__30F848ED" FromRole="Tipo_Informacion" ToRole="Formato_Mensaje" />
+        </EntityType>
+        <Association Name="FK__Formato_M__IdTip__300424B4">
+          <End Role="Tipo" Type="Self.Tipo" Multiplicity="1" />
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="TipoId" />
+            </Principal>
+            <Dependent Role="Formato_Mensaje">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Formato_M__IdTip__30F848ED">
+          <End Role="Tipo_Informacion" Type="Self.Tipo_Informacion" Multiplicity="1" />
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Informacion">
+              <PropertyRef Name="TipoInformacionId" />
+            </Principal>
+            <Dependent Role="Formato_Mensaje">
+              <PropertyRef Name="IdTipoInformacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdForma__33D4B598">
+          <End Role="Formato_Mensaje" Type="Self.Formato_Mensaje" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formato_Mensaje">
+              <PropertyRef Name="FormatoMensajeId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdFormatoMensaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdProdu__35BCFE0A">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mensaje__IdProye__34C8D9D1">
+          <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyecto">
+              <PropertyRef Name="ProyectoId" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdPro__2D27B809">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Producto_Proyecto" Type="Self.Producto_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ProductoId" />
+            </Principal>
+            <Dependent Role="Producto_Proyecto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto___IdPro__2C3393D0">
+          <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+          <End Role="Producto_Proyecto" Type="Self.Producto_Proyecto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyecto">
+              <PropertyRef Name="ProyectoId" />
+            </Principal>
+            <Dependent Role="Producto_Proyecto">
+              <PropertyRef Name="IdProyecto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PromericaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Formato_Mensaje" EntityType="Self.Formato_Mensaje" />
+          <EntitySet Name="Mensaje" EntityType="Self.Mensaje" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Producto_Proyecto" EntityType="Self.Producto_Proyecto" />
+          <EntitySet Name="Proyecto" EntityType="Self.Proyecto" />
+          <EntitySet Name="Tipo" EntityType="Self.Tipo" />
+          <EntitySet Name="Tipo_Informacion" EntityType="Self.Tipo_Informacion" />
+          <AssociationSet Name="FK__Formato_M__IdTip__300424B4" Association="Self.FK__Formato_M__IdTip__300424B4">
+            <End Role="Tipo" EntitySet="Tipo" />
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Formato_M__IdTip__30F848ED" Association="Self.FK__Formato_M__IdTip__30F848ED">
+            <End Role="Tipo_Informacion" EntitySet="Tipo_Informacion" />
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdForma__33D4B598" Association="Self.FK__Mensaje__IdForma__33D4B598">
+            <End Role="Formato_Mensaje" EntitySet="Formato_Mensaje" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdProdu__35BCFE0A" Association="Self.FK__Mensaje__IdProdu__35BCFE0A">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mensaje__IdProye__34C8D9D1" Association="Self.FK__Mensaje__IdProye__34C8D9D1">
+            <End Role="Proyecto" EntitySet="Proyecto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdPro__2D27B809" Association="Self.FK__Producto___IdPro__2D27B809">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Producto_Proyecto" EntitySet="Producto_Proyecto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto___IdPro__2C3393D0" Association="Self.FK__Producto___IdPro__2C3393D0">
+            <End Role="Proyecto" EntitySet="Proyecto" />
+            <End Role="Producto_Proyecto" EntitySet="Producto_Proyecto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PromericaModelStoreContainer" CdmEntityContainer="PromericaEntities">
+          <EntitySetMapping Name="Formato_Mensaje">
+            <EntityTypeMapping TypeName="PromericaModel.Formato_Mensaje">
+              <MappingFragment StoreEntitySet="Formato_Mensaje">
+                <ScalarProperty Name="FormatoMensajeId" ColumnName="FormatoMensajeId" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="IdTipoInformacion" ColumnName="IdTipoInformacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Remitente" ColumnName="Remitente" />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mensaje">
+            <EntityTypeMapping TypeName="PromericaModel.Mensaje">
+              <MappingFragment StoreEntitySet="Mensaje">
+                <ScalarProperty Name="MensajeId" ColumnName="MensajeId" />
+                <ScalarProperty Name="IdFormatoMensaje" ColumnName="IdFormatoMensaje" />
+                <ScalarProperty Name="IdProyecto" ColumnName="IdProyecto" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="PromericaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="ProductoId" ColumnName="ProductoId" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto_Proyecto">
+            <EntityTypeMapping TypeName="PromericaModel.Producto_Proyecto">
+              <MappingFragment StoreEntitySet="Producto_Proyecto">
+                <ScalarProperty Name="ProductoProyectoId" ColumnName="ProductoProyectoId" />
+                <ScalarProperty Name="IdProyecto" ColumnName="IdProyecto" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proyecto">
+            <EntityTypeMapping TypeName="PromericaModel.Proyecto">
+              <MappingFragment StoreEntitySet="Proyecto">
+                <ScalarProperty Name="ProyectoId" ColumnName="ProyectoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo">
+            <EntityTypeMapping TypeName="PromericaModel.Tipo">
+              <MappingFragment StoreEntitySet="Tipo">
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Informacion">
+            <EntityTypeMapping TypeName="PromericaModel.Tipo_Informacion">
+              <MappingFragment StoreEntitySet="Tipo_Informacion">
+                <ScalarProperty Name="TipoInformacionId" ColumnName="TipoInformacionId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
