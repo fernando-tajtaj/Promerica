@@ -1,9 +1,8 @@
-﻿namespace Cons.Promerica
+﻿namespace Cons.Promerica.Conexion
 {
     using System;
     using System.Configuration;
     using System.Data.SqlClient;
-
     internal class Conexion
     {
         public SqlConnection sqlConnection = new SqlConnection();

@@ -1,4 +1,4 @@
-﻿namespace Cons.Promerica
+﻿namespace Cons.Promerica.Utilidades
 {
     using System;
     using System.Collections.Generic;

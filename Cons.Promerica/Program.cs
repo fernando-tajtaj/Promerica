@@ -1,5 +1,7 @@
 ﻿namespace Cons.Promerica
 {
+    using Cons.Promerica.Controlador;
+    using Cons.Promerica.Utilidades;
     using System;
     using System.Data;
     internal class Program

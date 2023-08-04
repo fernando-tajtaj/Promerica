@@ -1,4 +1,4 @@
-﻿namespace Cons.Promerica
+﻿namespace Cons.Promerica.Controlador
 {
     using System;
     using System.Data;
