@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript">
+        function ValidarFormulario() {
+            var usuario = document.getElementById('usuario').value;
+            var contrasenia = document.getElementById('contrasenia').value;
+
+            if (usuario.length <= 0 || contrasenia.length <= 0) {
+                alert('No has ingresado todos los datos');
+                return;
+            }
+            else {
+                alert('Validacion superada');
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <form id="formulario">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario">
+
+        <label for="contrasenia">Contrasenia:</label>
+        <input type="password" id="contrasenia">
+
+        <div id="lower">
+            <input type="submit" value="Login" onclick="return ValidarFormulario();">
+        </div>
+    </form>
+</body>
+</html>
